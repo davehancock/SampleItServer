@@ -13,6 +13,10 @@ buildscript {
 apply plugin: 'spring-boot'
 apply plugin: 'java'
 
+jar {
+    archiveName = "SampleItServer.jar"
+}
+
 repositories {
     jcenter()
     maven {
