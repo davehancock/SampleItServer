@@ -46,20 +46,22 @@ public class CPUController {
         // TODO Move this logic down into the service maybe
         List<CPUSampleSet> cpuSampleSets = cpuService.retrieveLatestCPUSampleSets();
 
-        int numberOfCores = cpuSampleSets.get(0).getCpuSamples().get(0).getCpuCores().size();
+        if (!cpuSampleSets.isEmpty()) {
 
-        for (int i = 0; i < numberOfCores; i++) {
-            List<Double> cpuTickList = new ArrayList<>();
-            cpuStats.add(cpuTickList);
-        }
+            int numberOfCores = cpuSampleSets.get(0).getCpuSamples().get(0).getCpuCores().size();
 
-        List<CPUSample> cpuSamples = cpuSampleSets.get(0).getCpuSamples();
+            for (int i = 0; i < numberOfCores; i++) {
+                cpuStats.add(new ArrayList<>());
+            }
 
-        for (CPUSample cpuSample : cpuSamples) {
-            List<CPUCore> cpuCores = cpuSample.getCpuCores();
+            List<CPUSample> cpuSamples = cpuSampleSets.get(0).getCpuSamples();
 
-            for (int i = 0;  i<numberOfCores; i++) {
-                cpuStats.get(i).add(cpuCores.get(i).getCpuClockSpeed());
+            for (CPUSample cpuSample : cpuSamples) {
+                List<CPUCore> cpuCores = cpuSample.getCpuCores();
+
+                for (int i = 0; i < numberOfCores; i++) {
+                    cpuStats.get(i).add(cpuCores.get(i).getCpuClockSpeed());
+                }
             }
         }
 
