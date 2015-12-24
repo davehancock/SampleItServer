@@ -1,8 +1,17 @@
+sudo: required
+services:
+  - docker
 
 language: java
 
 jdk:
   - oraclejdk8
+
+after_install:
+# TODO Obsficate
+- docker build -t daves125125/sampleit-server .
+- docker login -e="daves125125@aol.com" -u="daves125125" -p="Docker123"
+- docker push daves125125/sampleit-server
 
 notifications:
   email: false
