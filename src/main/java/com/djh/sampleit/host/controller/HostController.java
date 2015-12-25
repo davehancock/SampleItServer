@@ -1,6 +1,5 @@
 package com.djh.sampleit.host.controller;
 
-import com.djh.sampleit.cpu.controller.model.CPUSampleSet;
 import com.djh.sampleit.host.service.HostService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;

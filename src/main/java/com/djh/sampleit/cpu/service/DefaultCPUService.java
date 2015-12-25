@@ -1,12 +1,11 @@
 package com.djh.sampleit.cpu.service;
 
-import com.djh.sampleit.cpu.controller.model.CPUSample;
-import com.djh.sampleit.cpu.controller.model.CPUSampleSet;
+import com.djh.sampleit.cpu.model.CPUSample;
+import com.djh.sampleit.cpu.model.CPUSampleSet;
 import com.djh.sampleit.cpu.dao.CPUSampleDAO;
 import com.djh.sampleit.cpu.controller.model.CPUMetric;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,6 +28,7 @@ public class DefaultCPUService implements CPUService {
         cpuSampleDAO.persistCPUSample(hostname, cpuSample);
     }
 
+    // TODO Redundant?
     @Override
     public CPUSampleSet retrieveCPUSampleSet(String hostname) {
 
@@ -41,15 +41,15 @@ public class DefaultCPUService implements CPUService {
         return cpuSampleSet;
     }
 
+    // TODO Redundant?
     @Override
     public List<CPUSampleSet> retrieveAllCPUSampleSets() {
         return cpuSampleDAO.readAllCPUSamples();
     }
 
     @Override
-    public List<CPUSampleSet> retrieveLatestCPUSampleSets() {
-        return cpuSampleDAO.readLatestCPUSamples();
+    public List<CPUSample> retrieveLatestCPUSampleSetsForHostname(String hostname) {
+        return cpuSampleDAO.readAllCPUSamplesForHostname(hostname);
     }
-
 
 }

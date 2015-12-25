@@ -1,8 +1,7 @@
 package com.djh.sampleit.cpu.dao;
 
-import com.djh.sampleit.cpu.controller.model.CPUMetric;
-import com.djh.sampleit.cpu.controller.model.CPUSample;
-import com.djh.sampleit.cpu.controller.model.CPUSampleSet;
+import com.djh.sampleit.cpu.model.CPUSample;
+import com.djh.sampleit.cpu.model.CPUSampleSet;
 
 import java.util.List;
 
@@ -17,6 +16,6 @@ public interface CPUSampleDAO {
 
     List<CPUSampleSet> readAllCPUSamples();
 
-    List<CPUSampleSet> readLatestCPUSamples();
+    List<String> readAllHostsWithCPUMetrics();
 
 }

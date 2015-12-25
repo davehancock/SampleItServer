@@ -1,4 +1,6 @@
-package com.djh.sampleit.cpu.controller.model;
+package com.djh.sampleit.cpu.model;
+
+import com.djh.sampleit.cpu.controller.model.CPUCore;
 
 import java.util.ArrayList;
 import java.util.Date;

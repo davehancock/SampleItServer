@@ -1,11 +1,11 @@
 package com.djh.sampleit.cpu.dao;
 
-import com.djh.sampleit.cpu.controller.model.CPUSample;
-import com.djh.sampleit.cpu.controller.model.CPUSampleSet;
+import com.djh.sampleit.cpu.model.CPUSample;
+import com.djh.sampleit.cpu.model.CPUSampleSet;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -15,7 +15,7 @@ public class SimpleCPUSampleDAO implements CPUSampleDAO {
 
     private Map<String, List<CPUSample>> cpuSampleMap = new ConcurrentHashMap<>();
 
-    // TODO persist as sampleSet instead?
+    // TODO persist as sampleSet instead? Or Rather Lists of CPUSamples per host...
     @Override
     public void persistCPUSample(String hostname, CPUSample cpuSample) {
 
@@ -28,13 +28,7 @@ public class SimpleCPUSampleDAO implements CPUSampleDAO {
         }
     }
 
-    // TODO read as a sampleSet instead?
-    @Override
-    public List<CPUSample> readAllCPUSamplesForHostname(String hostname) {
-        return cpuSampleMap.get(hostname);
-    }
-
-    // TODO read as list of sampleSet instead?
+    // TODO Redundant?
     @Override
     public List<CPUSampleSet> readAllCPUSamples() {
 
@@ -49,31 +43,17 @@ public class SimpleCPUSampleDAO implements CPUSampleDAO {
             cpuSampleSets.add(cpuSampleSet);
         }
 
-        return cpuSampleSets;
+        return new ArrayList<>(cpuSampleSets);
     }
 
-    // TODO read as list of sampleSet instead?
     @Override
-    public List<CPUSampleSet> readLatestCPUSamples() {
+    public List<CPUSample> readAllCPUSamplesForHostname(String hostname) {
+        return new ArrayList<>(cpuSampleMap.get(hostname));
+    }
 
-        List<CPUSampleSet> cpuSampleSets = new ArrayList<>();
-
-        for (Map.Entry<String, List<CPUSample>> entry : cpuSampleMap.entrySet()) {
-
-            CPUSampleSet cpuSampleSet = new CPUSampleSet();
-            cpuSampleSet.setHostname(entry.getKey());
-
-            List<CPUSample> cpuSamples = entry.getValue();
-            if (cpuSamples.size() < 30) {
-                cpuSampleSet.setCpuSamples(cpuSamples);
-            } else {
-                cpuSampleSet.setCpuSamples(cpuSamples.subList(cpuSamples.size() - 31, cpuSamples.size() - 1));
-            }
-
-            cpuSampleSets.add(cpuSampleSet);
-        }
-
-        return cpuSampleSets;
+    @Override
+    public List<String> readAllHostsWithCPUMetrics(){
+        return new ArrayList<>(cpuSampleMap.keySet());
     }
 
 }

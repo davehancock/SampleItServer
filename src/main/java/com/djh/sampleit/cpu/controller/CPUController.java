@@ -2,8 +2,7 @@ package com.djh.sampleit.cpu.controller;
 
 import com.djh.sampleit.cpu.controller.model.CPUCore;
 import com.djh.sampleit.cpu.controller.model.CPUMetric;
-import com.djh.sampleit.cpu.controller.model.CPUSample;
-import com.djh.sampleit.cpu.controller.model.CPUSampleSet;
+import com.djh.sampleit.cpu.model.CPUSample;
 import com.djh.sampleit.cpu.service.CPUService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -32,46 +31,51 @@ public class CPUController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "cpus", method = RequestMethod.GET)
-    public List<CPUSampleSet> cpuSampleSet() {
-        return cpuService.retrieveLatestCPUSampleSets();
-    }
-
-    @CrossOrigin
-    @RequestMapping(value = "cpu/overlay", method = RequestMethod.GET)
-    public List<List<Double>> cpuOverlay() {
+    @RequestMapping(value = "cpu/samples/{hostname}", method = RequestMethod.GET)
+    public List<List<Double>> cpuOverlayForHost(@PathVariable String hostname) {
 
         List<List<Double>> cpuStats = new ArrayList<>();
 
-        // TODO Move this logic down into the service maybe
-        List<CPUSampleSet> cpuSampleSets = cpuService.retrieveLatestCPUSampleSets();
+        List<CPUSample> allCpuSamples = cpuService.retrieveLatestCPUSampleSetsForHostname(hostname);
+        if (allCpuSamples != null && !allCpuSamples.isEmpty()) {
 
-        if (!cpuSampleSets.isEmpty()) {
-
-            int numberOfCores = cpuSampleSets.get(0).getCpuSamples().get(0).getCpuCores().size();
-
-            for (int i = 0; i < numberOfCores; i++) {
-                cpuStats.add(new ArrayList<>());
-            }
-
-            List<CPUSample> cpuSamples = cpuSampleSets.get(0).getCpuSamples();
-
-            for (CPUSample cpuSample : cpuSamples) {
-                List<CPUCore> cpuCores = cpuSample.getCpuCores();
-
-                for (int i = 0; i < numberOfCores; i++) {
-                    cpuStats.get(i).add(cpuCores.get(i).getCpuClockSpeed());
-                }
+            // TODO This truncation certainly needs to be done sooner.
+            if (allCpuSamples.size() > 30) {
+                cpuStats = transformCpuStats(allCpuSamples.subList(
+                        allCpuSamples.size() - 30, allCpuSamples.size()));
+            } else {
+                cpuStats = transformCpuStats(allCpuSamples);
             }
         }
 
         return cpuStats;
     }
 
-    @CrossOrigin
-    @RequestMapping(value = "cpu/{hostname}", method = RequestMethod.GET)
-    public CPUSampleSet cpuSampleSets(@PathVariable("hostname") String hostname) {
-        return cpuService.retrieveCPUSampleSet(hostname);
+    /**
+     * TODO Maybe move this down into the service.
+     * <p>
+     * Transforms an indeterminate list of CPU values into set of lists, each representing
+     * clock speed per core.
+     */
+    private List<List<Double>> transformCpuStats(List<CPUSample> cpuSamples) {
+
+        List<List<Double>> cpuStats = new ArrayList<>();
+
+        int numberOfCores = cpuSamples.get(0).getCpuCores().size();
+
+        for (int i = 0; i < numberOfCores; i++) {
+            cpuStats.add(new ArrayList<>());
+        }
+
+        for (CPUSample cpuSample : cpuSamples) {
+            List<CPUCore> cpuCores = cpuSample.getCpuCores();
+
+            for (int i = 0; i < numberOfCores; i++) {
+                cpuStats.get(i).add(cpuCores.get(i).getCpuClockSpeed());
+            }
+        }
+
+        return cpuStats;
     }
 
 }

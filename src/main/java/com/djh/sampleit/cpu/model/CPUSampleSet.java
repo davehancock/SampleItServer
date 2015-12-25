@@ -1,4 +1,4 @@
-package com.djh.sampleit.cpu.controller.model;
+package com.djh.sampleit.cpu.model;
 
 import java.util.ArrayList;
 import java.util.List;
