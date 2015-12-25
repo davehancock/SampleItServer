@@ -46,6 +46,7 @@ public class SimpleCPUSampleDAO implements CPUSampleDAO {
         return new ArrayList<>(cpuSampleSets);
     }
 
+    // TODO Throws null pointer on empty list
     @Override
     public List<CPUSample> readAllCPUSamplesForHostname(String hostname) {
         return new ArrayList<>(cpuSampleMap.get(hostname));
