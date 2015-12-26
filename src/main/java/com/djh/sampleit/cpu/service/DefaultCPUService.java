@@ -28,25 +28,6 @@ public class DefaultCPUService implements CPUService {
         cpuSampleDAO.persistCPUSample(hostname, cpuSample);
     }
 
-    // TODO Redundant?
-    @Override
-    public CPUSampleSet retrieveCPUSampleSet(String hostname) {
-
-        List<CPUSample> cpuSamples = cpuSampleDAO.readAllCPUSamplesForHostname(hostname);
-
-        CPUSampleSet cpuSampleSet = new CPUSampleSet();
-        cpuSampleSet.setHostname(hostname);
-        cpuSampleSet.setCpuSamples(cpuSamples);
-
-        return cpuSampleSet;
-    }
-
-    // TODO Redundant?
-    @Override
-    public List<CPUSampleSet> retrieveAllCPUSampleSets() {
-        return cpuSampleDAO.readAllCPUSamples();
-    }
-
     @Override
     public List<CPUSample> retrieveLatestCPUSampleSetsForHostname(String hostname) {
         return cpuSampleDAO.readAllCPUSamplesForHostname(hostname);

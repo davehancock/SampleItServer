@@ -28,24 +28,6 @@ public class SimpleCPUSampleDAO implements CPUSampleDAO {
         }
     }
 
-    // TODO Redundant?
-    @Override
-    public List<CPUSampleSet> readAllCPUSamples() {
-
-        List<CPUSampleSet> cpuSampleSets = new ArrayList<>();
-
-        for (Map.Entry<String, List<CPUSample>> entry : cpuSampleMap.entrySet()) {
-
-            CPUSampleSet cpuSampleSet = new CPUSampleSet();
-            cpuSampleSet.setHostname(entry.getKey());
-            cpuSampleSet.setCpuSamples(entry.getValue());
-
-            cpuSampleSets.add(cpuSampleSet);
-        }
-
-        return new ArrayList<>(cpuSampleSets);
-    }
-
     // TODO Throws null pointer on empty list
     @Override
     public List<CPUSample> readAllCPUSamplesForHostname(String hostname) {

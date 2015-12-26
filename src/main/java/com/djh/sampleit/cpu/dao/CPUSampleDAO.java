@@ -14,8 +14,6 @@ public interface CPUSampleDAO {
 
     List<CPUSample> readAllCPUSamplesForHostname(String hostname);
 
-    List<CPUSampleSet> readAllCPUSamples();
-
     List<String> readAllHostsWithCPUMetrics();
 
 }
