@@ -31,8 +31,8 @@ public class CPUController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "cpu/samples/{hostname}", method = RequestMethod.GET)
-    public List<List<Double>> cpuOverlayForHost(@PathVariable String hostname) {
+    @RequestMapping(value = "cpu/samples/{hostname}/{numberOfPoints}", method = RequestMethod.GET)
+    public List<List<Double>> cpuOverlayForHost(@PathVariable String hostname, @PathVariable int numberOfPoints) {
 
         List<List<Double>> cpuStats = new ArrayList<>();
 
@@ -40,9 +40,9 @@ public class CPUController {
         if (allCpuSamples != null && !allCpuSamples.isEmpty()) {
 
             // TODO This truncation certainly needs to be done sooner.
-            if (allCpuSamples.size() > 30) {
+            if (allCpuSamples.size() > numberOfPoints) {
                 cpuStats = transformCpuStats(allCpuSamples.subList(
-                        allCpuSamples.size() - 30, allCpuSamples.size()));
+                        allCpuSamples.size() - numberOfPoints, allCpuSamples.size()));
             } else {
                 cpuStats = transformCpuStats(allCpuSamples);
             }
