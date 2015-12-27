@@ -26,7 +26,7 @@ public class CPUController {
     @RequestMapping(value = "cpu", method = RequestMethod.POST)
     public void cpuMetric(@RequestBody CPUMetric cpuMetric) {
 
-        LOG.info("Received metric: " + cpuMetric.toString());
+        LOG.info("Received CPU Metric: " + cpuMetric.toString());
         cpuService.saveCPUMetric(cpuMetric);
     }
 
@@ -36,7 +36,7 @@ public class CPUController {
 
         List<List<Double>> cpuStats = new ArrayList<>();
 
-        List<CPUSample> allCpuSamples = cpuService.retrieveLatestCPUSampleSetsForHostname(hostname);
+        List<CPUSample> allCpuSamples = cpuService.retrieveCPUSampleSetsForHostname(hostname);
         if (allCpuSamples != null && !allCpuSamples.isEmpty()) {
 
             // TODO This truncation certainly needs to be done sooner.

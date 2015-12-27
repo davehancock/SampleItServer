@@ -29,7 +29,7 @@ public class DefaultCPUService implements CPUService {
     }
 
     @Override
-    public List<CPUSample> retrieveLatestCPUSampleSetsForHostname(String hostname) {
+    public List<CPUSample> retrieveCPUSampleSetsForHostname(String hostname) {
         return cpuSampleDAO.readAllCPUSamplesForHostname(hostname);
     }
 
