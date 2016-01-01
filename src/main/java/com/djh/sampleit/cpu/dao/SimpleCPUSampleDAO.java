@@ -1,9 +1,6 @@
 package com.djh.sampleit.cpu.dao;
 
 import com.djh.sampleit.cpu.model.CPUSample;
-import com.djh.sampleit.cpu.model.CPUSampleSet;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
@@ -17,26 +14,21 @@ public class SimpleCPUSampleDAO implements CPUSampleDAO {
 
     // TODO persist as sampleSet instead? Or Rather Lists of CPUSamples per host...
     @Override
-    public void persistCPUSample(String hostname, CPUSample cpuSample) {
+    public void persistCPUSample(String macAddress, CPUSample cpuSample) {
 
-        if (cpuSampleMap.containsKey(hostname)) {
-            cpuSampleMap.get(hostname).add(cpuSample);
+        if (cpuSampleMap.containsKey(macAddress)) {
+            cpuSampleMap.get(macAddress).add(cpuSample);
         } else {
             List<CPUSample> cpuSamples = new ArrayList<>();
             cpuSamples.add(cpuSample);
-            cpuSampleMap.put(hostname, cpuSamples);
+            cpuSampleMap.put(macAddress, cpuSamples);
         }
     }
 
     // TODO Throws null pointer on empty list
     @Override
-    public List<CPUSample> readAllCPUSamplesForHostname(String hostname) {
-        return new ArrayList<>(cpuSampleMap.get(hostname));
-    }
-
-    @Override
-    public List<String> readAllHostsWithCPUMetrics(){
-        return new ArrayList<>(cpuSampleMap.keySet());
+    public List<CPUSample> readAllCPUSamplesForMACAddress(String macAddress) {
+        return new ArrayList<>(cpuSampleMap.get(macAddress));
     }
 
 }

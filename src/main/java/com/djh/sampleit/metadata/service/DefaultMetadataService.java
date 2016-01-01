@@ -1,6 +1,5 @@
 package com.djh.sampleit.metadata.service;
 
-import com.djh.sampleit.cpu.dao.CPUSampleDAO;
 import com.djh.sampleit.metadata.MetricMetadata;
 import com.djh.sampleit.metadata.dao.MetadataDAO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +16,7 @@ public class DefaultMetadataService implements MetadataService {
 
     @Override
     public void saveMetadata(MetricMetadata metricMetadata) {
-        metadataDAO.persistMetadataForHost(metricMetadata);
+        metadataDAO.persistMetadataForMACAddress(metricMetadata);
     }
 
     @Override
@@ -26,8 +25,8 @@ public class DefaultMetadataService implements MetadataService {
     }
 
     @Override
-    public MetricMetadata retrieveMetadataForHost(String hostname) {
-        return metadataDAO.readMetadataForHost(hostname);
+    public MetricMetadata retrieveMetadataForMACAddress(String macAddress) {
+        return metadataDAO.readMetadataForHost(macAddress);
     }
 
 }

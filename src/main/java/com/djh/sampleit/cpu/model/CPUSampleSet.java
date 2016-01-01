@@ -8,19 +8,19 @@ import java.util.List;
  */
 public class CPUSampleSet {
 
-    private String Hostname;
+    private String macAddress;
 
     List<CPUSample> cpuSamples = new ArrayList<>();
 
     public CPUSampleSet() {
     }
 
-    public String getHostname() {
-        return Hostname;
+    public String getMacAddress() {
+        return macAddress;
     }
 
-    public void setHostname(String hostname) {
-        Hostname = hostname;
+    public void setMacAddress(String macAddress) {
+        this.macAddress = macAddress;
     }
 
     public List<CPUSample> getCpuSamples() {

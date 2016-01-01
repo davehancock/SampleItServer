@@ -34,18 +34,18 @@ public class MemoryController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "memory/sample/{hostname}", method = RequestMethod.GET)
-    public MemorySample cpuOverlayForHost(@PathVariable String hostname) {
+    @RequestMapping(value = "memory/sample/{macAddress}", method = RequestMethod.GET)
+    public MemorySample cpuOverlayForHost(@PathVariable String macAddress) {
 
-        List<MemorySample> memorySamples = memoryService.retrieveMemorySamplesForHostname(hostname);
+        List<MemorySample> memorySamples = memoryService.retrieveMemorySamplesForMACAddress(macAddress);
         return memorySamples.get(memorySamples.size() - 1);
     }
 
     @CrossOrigin
-    @RequestMapping(value = "memory/samples/{hostname}/{numberOfPoints}", method = RequestMethod.GET)
-    public List<MemorySample> cpuOverlayForHost(@PathVariable String hostname, @PathVariable int numberOfPoints) {
+    @RequestMapping(value = "memory/samples/{macAddress}/{numberOfPoints}", method = RequestMethod.GET)
+    public List<MemorySample> cpuOverlayForHost(@PathVariable String macAddress, @PathVariable int numberOfPoints) {
 
-        List<MemorySample> memorySamples = memoryService.retrieveMemorySamplesForHostname(hostname);
+        List<MemorySample> memorySamples = memoryService.retrieveMemorySamplesForMACAddress(macAddress);
         return memorySamples.subList(memorySamples.size() - numberOfPoints, memorySamples.size());
     }
 

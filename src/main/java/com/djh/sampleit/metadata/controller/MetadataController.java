@@ -23,9 +23,9 @@ public class MetadataController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "metadata/{hostname}", method = RequestMethod.GET)
-    public MetricMetadata hosts(@PathVariable String hostname) {
-        return metadataService.retrieveMetadataForHost(hostname);
+    @RequestMapping(value = "metadata/{macAddress}", method = RequestMethod.GET)
+    public MetricMetadata hosts(@PathVariable String macAddress) {
+        return metadataService.retrieveMetadataForMACAddress(macAddress);
     }
 
 }

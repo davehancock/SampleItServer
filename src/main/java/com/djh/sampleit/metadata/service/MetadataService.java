@@ -13,6 +13,6 @@ public interface MetadataService {
 
     List<String> retrieveHosts();
 
-    MetricMetadata retrieveMetadataForHost(String hostname);
+    MetricMetadata retrieveMetadataForMACAddress(String macAddress);
 
 }

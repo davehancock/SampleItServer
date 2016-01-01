@@ -30,12 +30,12 @@ public class DefaultMemoryService implements MemoryService {
         MetricMetadata metricMetadata = memoryMetric.getMetricMetadata();
         MemorySample memorySample = new MemorySample(memoryMetric.getTotalMemory(), memoryMetric.getTotalAvailableMemory());
 
-        memoryDAO.persistMemoryMetric(metricMetadata.getHostname(), memorySample);
+        memoryDAO.persistMemoryMetric(metricMetadata.getMacAddress(), memorySample);
     }
 
     @Override
-    public List<MemorySample> retrieveMemorySamplesForHostname(String hostname) {
-        return memoryDAO.readAllMemorySamplesForHostname(hostname);
+    public List<MemorySample> retrieveMemorySamplesForMACAddress(String macAddress) {
+        return memoryDAO.readAllMemorySamplesForMACAddress(macAddress);
     }
 
 }

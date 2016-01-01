@@ -11,10 +11,8 @@ import java.util.List;
  */
 public interface MemoryDAO {
 
-    void persistMemoryMetric(String hostname, MemorySample memorySample);
+    void persistMemoryMetric(String macAddress, MemorySample memorySample);
 
-    List<MemorySample> readAllMemorySamplesForHostname(String hostname);
-
-    List<String> readAllHostsWithCPUSamples();
+    List<MemorySample> readAllMemorySamplesForMACAddress(String macAddress);
 
 }

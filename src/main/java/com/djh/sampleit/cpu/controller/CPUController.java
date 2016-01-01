@@ -4,11 +4,9 @@ import com.djh.sampleit.cpu.controller.model.CPUCore;
 import com.djh.sampleit.cpu.controller.model.CPUMetric;
 import com.djh.sampleit.cpu.model.CPUSample;
 import com.djh.sampleit.cpu.service.CPUService;
-import oracle.jrockit.jfr.StringConstantPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -38,12 +36,12 @@ public class CPUController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "cpu/samples/{hostname}/{numberOfPoints}", method = RequestMethod.GET)
-    public List<List<Double>> cpuOverlayForHost(@PathVariable String hostname, @PathVariable int numberOfPoints) {
+    @RequestMapping(value = "cpu/samples/{macAddress}/{numberOfPoints}", method = RequestMethod.GET)
+    public List<List<Double>> cpuOverlayForHost(@PathVariable String macAddress, @PathVariable int numberOfPoints) {
 
         List<List<Double>> cpuStats = new ArrayList<>();
 
-        List<CPUSample> allCpuSamples = cpuService.retrieveCPUSampleSetsForHostname(hostname);
+        List<CPUSample> allCpuSamples = cpuService.retrieveCPUSampleSetsForMACAddress(macAddress);
         if (allCpuSamples != null && !allCpuSamples.isEmpty()) {
 
             // TODO This truncation certainly needs to be done sooner.

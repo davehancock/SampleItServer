@@ -13,6 +13,6 @@ public interface CPUService {
 
     void saveCPUMetric(CPUMetric cpuMetric);
 
-    List<CPUSample> retrieveCPUSampleSetsForHostname(String hostname);
+    List<CPUSample> retrieveCPUSampleSetsForMACAddress(String macAddress);
 
 }

@@ -10,10 +10,8 @@ import java.util.List;
  */
 public interface CPUSampleDAO {
 
-    void persistCPUSample(String hostname, CPUSample cpuSample);
+    void persistCPUSample(String macAddress, CPUSample cpuSample);
 
-    List<CPUSample> readAllCPUSamplesForHostname(String hostname);
-
-    List<String> readAllHostsWithCPUMetrics();
+    List<CPUSample> readAllCPUSamplesForMACAddress(String macAddress);
 
 }
