@@ -4,11 +4,14 @@ import com.djh.sampleit.cpu.controller.model.CPUCore;
 import com.djh.sampleit.cpu.controller.model.CPUMetric;
 import com.djh.sampleit.cpu.model.CPUSample;
 import com.djh.sampleit.cpu.service.CPUService;
+import oracle.jrockit.jfr.StringConstantPool;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpRequest;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,7 +27,11 @@ public class CPUController {
     private CPUService cpuService;
 
     @RequestMapping(value = "cpu", method = RequestMethod.POST)
-    public void cpuMetric(@RequestBody CPUMetric cpuMetric) {
+    public void cpuMetric(@RequestBody CPUMetric cpuMetric, HttpServletRequest httpServletRequest) {
+
+        // TODO AOP this maybe.
+        String originIPAddress = httpServletRequest.getRemoteAddr();
+        cpuMetric.getMetricMetadata().setOriginPublicIPAddress(originIPAddress);
 
         LOG.info("Received CPU Metric: " + cpuMetric.toString());
         cpuService.saveCPUMetric(cpuMetric);

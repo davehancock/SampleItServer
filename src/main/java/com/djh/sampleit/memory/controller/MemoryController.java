@@ -8,6 +8,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -22,7 +23,11 @@ public class MemoryController {
     public MemoryService memoryService;
 
     @RequestMapping(value = "memory", method = RequestMethod.POST)
-    public void memoryMetric(@RequestBody MemoryMetric memoryMetric) {
+    public void memoryMetric(@RequestBody MemoryMetric memoryMetric, HttpServletRequest httpServletRequest) {
+
+        // TODO AOP this maybe.
+        String originIPAddress = httpServletRequest.getRemoteAddr();
+        memoryMetric.getMetricMetadata().setOriginPublicIPAddress(originIPAddress);
 
         LOG.info("Received Memory Metric: " + memoryMetric.toString());
         memoryService.saveMemoryMetric(memoryMetric);

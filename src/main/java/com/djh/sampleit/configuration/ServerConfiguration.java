@@ -4,8 +4,10 @@ import com.djh.sampleit.cpu.dao.CPUSampleDAO;
 import com.djh.sampleit.cpu.dao.SimpleCPUSampleDAO;
 import com.djh.sampleit.cpu.service.CPUService;
 import com.djh.sampleit.cpu.service.DefaultCPUService;
-import com.djh.sampleit.host.service.DefaultHostService;
-import com.djh.sampleit.host.service.HostService;
+import com.djh.sampleit.metadata.dao.MetadataDAO;
+import com.djh.sampleit.metadata.dao.SimpleMetadataDAO;
+import com.djh.sampleit.metadata.service.DefaultMetadataService;
+import com.djh.sampleit.metadata.service.MetadataService;
 import com.djh.sampleit.memory.dao.MemoryDAO;
 import com.djh.sampleit.memory.dao.SimpleMemoryDAO;
 import com.djh.sampleit.memory.service.DefaultMemoryService;
@@ -21,10 +23,15 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class ServerConfiguration {
 
-    // Host
+    // Metadata
     @Bean
-    public HostService hostService() {
-        return new DefaultHostService();
+    public MetadataService metadataService() {
+        return new DefaultMetadataService();
+    }
+
+    @Bean
+    public MetadataDAO metadataDAO() {
+        return new SimpleMetadataDAO();
     }
 
     // CPU
