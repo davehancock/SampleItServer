@@ -9,10 +9,8 @@ import java.util.List;
  */
 public interface MetadataDAO {
 
-    void persistMetadataForMACAddress(MetricMetadata metricMetadata);
+    void persistMetadataForMACAddress(String macAddress, MetricMetadata metricMetadata);
 
-    MetricMetadata readMetadataForHost(String macAddress);
-
-    List<String> readAllHosts();
+    MetricMetadata readMetadataForMACAddress(String macAddress);
 
 }

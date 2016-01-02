@@ -12,6 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class SimpleMemoryDAO implements MemoryDAO {
 
+    // This is always keyed by the unique and consistent MAC Address
     private Map<String, List<MemorySample>> memoryMetricMap = new ConcurrentHashMap<>();
 
     @Override

@@ -2,7 +2,9 @@ package com.djh.sampleit.cpu.dao;
 
 import com.djh.sampleit.cpu.model.CPUSample;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
 /**
@@ -10,6 +12,7 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class SimpleCPUSampleDAO implements CPUSampleDAO {
 
+    // This is always keyed by the unique and consistent MAC Address
     private Map<String, List<CPUSample>> cpuSampleMap = new ConcurrentHashMap<>();
 
     // TODO persist as sampleSet instead? Or Rather Lists of CPUSamples per host...

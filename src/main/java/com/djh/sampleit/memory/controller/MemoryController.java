@@ -23,7 +23,7 @@ public class MemoryController {
     public MemoryService memoryService;
 
     @RequestMapping(value = "memory", method = RequestMethod.POST)
-    public void memoryMetric(@RequestBody MemoryMetric memoryMetric, HttpServletRequest httpServletRequest) {
+    public void postMemoryMetric(@RequestBody MemoryMetric memoryMetric, HttpServletRequest httpServletRequest) {
 
         // TODO AOP this maybe.
         String originIPAddress = httpServletRequest.getRemoteAddr();
@@ -34,18 +34,18 @@ public class MemoryController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "memory/sample/{macAddress}", method = RequestMethod.GET)
-    public MemorySample cpuOverlayForHost(@PathVariable String macAddress) {
+    @RequestMapping(value = "memory/sample/{machineAlias}", method = RequestMethod.GET)
+    public MemorySample getCpuOverlayForMachine(@PathVariable String machineAlias) {
 
-        List<MemorySample> memorySamples = memoryService.retrieveMemorySamplesForMACAddress(macAddress);
+        List<MemorySample> memorySamples = memoryService.retrieveMemorySamplesForMachine(machineAlias);
         return memorySamples.get(memorySamples.size() - 1);
     }
 
     @CrossOrigin
-    @RequestMapping(value = "memory/samples/{macAddress}/{numberOfPoints}", method = RequestMethod.GET)
-    public List<MemorySample> cpuOverlayForHost(@PathVariable String macAddress, @PathVariable int numberOfPoints) {
+    @RequestMapping(value = "memory/samples/{machineAlias}/{numberOfPoints}", method = RequestMethod.GET)
+    public List<MemorySample> getCpuOverlayForMachine(@PathVariable String machineAlias, @PathVariable int numberOfPoints) {
 
-        List<MemorySample> memorySamples = memoryService.retrieveMemorySamplesForMACAddress(macAddress);
+        List<MemorySample> memorySamples = memoryService.retrieveMemorySamplesForMachine(machineAlias);
         return memorySamples.subList(memorySamples.size() - numberOfPoints, memorySamples.size());
     }
 

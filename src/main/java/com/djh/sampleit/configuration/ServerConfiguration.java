@@ -4,6 +4,8 @@ import com.djh.sampleit.cpu.dao.CPUSampleDAO;
 import com.djh.sampleit.cpu.dao.SimpleCPUSampleDAO;
 import com.djh.sampleit.cpu.service.CPUService;
 import com.djh.sampleit.cpu.service.DefaultCPUService;
+import com.djh.sampleit.machine.dao.SimpleMachineDAO;
+import com.djh.sampleit.machine.dao.MachineDAO;
 import com.djh.sampleit.metadata.dao.MetadataDAO;
 import com.djh.sampleit.metadata.dao.SimpleMetadataDAO;
 import com.djh.sampleit.metadata.service.DefaultMetadataService;
@@ -32,6 +34,11 @@ public class ServerConfiguration {
     @Bean
     public MetadataDAO metadataDAO() {
         return new SimpleMetadataDAO();
+    }
+
+    @Bean
+    public MachineDAO machineDAO() {
+        return new SimpleMachineDAO();
     }
 
     // CPU

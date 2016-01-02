@@ -3,6 +3,7 @@ package com.djh.sampleit.cpu.service;
 import com.djh.sampleit.cpu.model.CPUSample;
 import com.djh.sampleit.cpu.dao.CPUSampleDAO;
 import com.djh.sampleit.cpu.controller.model.CPUMetric;
+import com.djh.sampleit.machine.dao.MachineDAO;
 import com.djh.sampleit.metadata.service.MetadataService;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -15,6 +16,10 @@ public class DefaultCPUService implements CPUService {
 
     @Autowired
     private CPUSampleDAO cpuSampleDAO;
+
+    // TODO Move into a mediator service?
+    @Autowired
+    private MachineDAO machineDAO;
 
     // TODO AOP Metadata cross cutting concern
     @Autowired
@@ -36,7 +41,8 @@ public class DefaultCPUService implements CPUService {
     }
 
     @Override
-    public List<CPUSample> retrieveCPUSampleSetsForMACAddress(String macAddress) {
+    public List<CPUSample> retrieveCPUSampleSetsForMachine(String machineAlias) {
+        String macAddress = machineDAO.readMACAddressForMachineAlias(machineAlias);
         return cpuSampleDAO.readAllCPUSamplesForMACAddress(macAddress);
     }
 

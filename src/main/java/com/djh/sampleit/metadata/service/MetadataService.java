@@ -11,8 +11,10 @@ public interface MetadataService {
 
     void saveMetadata(MetricMetadata metricMetadata);
 
-    List<String> retrieveHosts();
+    MetricMetadata retrieveMetadataForMachine(String machineAlias);
 
-    MetricMetadata retrieveMetadataForMACAddress(String macAddress);
+    void updateMachineAliasMapping(String currentMachineAlias, String newMachineAlias);
+
+    List<String> retrieveMachineAliases();
 
 }

@@ -12,6 +12,6 @@ public interface MemoryService {
 
     void saveMemoryMetric(MemoryMetric memoryMetric);
 
-    List<MemorySample> retrieveMemorySamplesForMACAddress(String macAddress);
+    List<MemorySample> retrieveMemorySamplesForMachine(String machineAlias);
 
 }

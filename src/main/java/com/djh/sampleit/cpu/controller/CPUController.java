@@ -25,7 +25,7 @@ public class CPUController {
     private CPUService cpuService;
 
     @RequestMapping(value = "cpu", method = RequestMethod.POST)
-    public void cpuMetric(@RequestBody CPUMetric cpuMetric, HttpServletRequest httpServletRequest) {
+    public void postCpuMetric(@RequestBody CPUMetric cpuMetric, HttpServletRequest httpServletRequest) {
 
         // TODO AOP this maybe.
         String originIPAddress = httpServletRequest.getRemoteAddr();
@@ -36,12 +36,12 @@ public class CPUController {
     }
 
     @CrossOrigin
-    @RequestMapping(value = "cpu/samples/{macAddress}/{numberOfPoints}", method = RequestMethod.GET)
-    public List<List<Double>> cpuOverlayForHost(@PathVariable String macAddress, @PathVariable int numberOfPoints) {
+    @RequestMapping(value = "cpu/samples/{machineAlias}/{numberOfPoints}", method = RequestMethod.GET)
+    public List<List<Double>> getCpuOverlayForHost(@PathVariable String machineAlias, @PathVariable int numberOfPoints) {
 
         List<List<Double>> cpuStats = new ArrayList<>();
 
-        List<CPUSample> allCpuSamples = cpuService.retrieveCPUSampleSetsForMACAddress(macAddress);
+        List<CPUSample> allCpuSamples = cpuService.retrieveCPUSampleSetsForMachine(machineAlias);
         if (allCpuSamples != null && !allCpuSamples.isEmpty()) {
 
             // TODO This truncation certainly needs to be done sooner.
@@ -57,7 +57,7 @@ public class CPUController {
     }
 
     /**
-     * TODO Maybe move this down into the service.
+     * TODO Definitely move this down into the service.
      * <p>
      * Transforms an indeterminate list of CPU values into set of lists, each representing
      * clock speed per core.

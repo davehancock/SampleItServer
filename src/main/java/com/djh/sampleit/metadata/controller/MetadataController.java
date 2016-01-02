@@ -17,15 +17,26 @@ public class MetadataController {
     private MetadataService metadataService;
 
     @CrossOrigin
-    @RequestMapping(value = "hosts", method = RequestMethod.GET)
-    public List<String> hosts() {
-        return metadataService.retrieveHosts();
+    @RequestMapping(value = "metadata/{machineAlias}", method = RequestMethod.GET)
+    public MetricMetadata getMetadata(@PathVariable String machineAlias) {
+        return metadataService.retrieveMetadataForMachine(machineAlias);
     }
 
+    // TODO Candidate for moving to Machine Controller
     @CrossOrigin
-    @RequestMapping(value = "metadata/{macAddress}", method = RequestMethod.GET)
-    public MetricMetadata hosts(@PathVariable String macAddress) {
-        return metadataService.retrieveMetadataForMACAddress(macAddress);
+    @RequestMapping(value = "metadata/{currentMachineAlias}/{newMachineAlias}/", method = RequestMethod.POST)
+    public String updateMetadataAlias(@PathVariable String currentMachineAlias,
+                                      @PathVariable String newMachineAlias) {
+
+        metadataService.updateMachineAliasMapping(currentMachineAlias, newMachineAlias);
+        return newMachineAlias;
+    }
+
+    //  TODO Candidate for moving to Machine Controller
+    @CrossOrigin
+    @RequestMapping(value = "hosts", method = RequestMethod.GET)
+    public List<String> getMachineAliases() {
+        return metadataService.retrieveMachineAliases();
     }
 
 }

@@ -2,8 +2,6 @@ package com.djh.sampleit.metadata.dao;
 
 import com.djh.sampleit.metadata.MetricMetadata;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -12,25 +10,17 @@ import java.util.concurrent.ConcurrentHashMap;
  */
 public class SimpleMetadataDAO implements MetadataDAO {
 
-    // TODO For now the key is macAddress.
-    // TODO It may make more sense on something unique and consistent, MAC Address? or generated composite key?
+    // This is always keyed by the unique and consistent MAC Address
     private Map<String, MetricMetadata> metadataMap = new ConcurrentHashMap<>();
 
     @Override
-    public void persistMetadataForMACAddress(MetricMetadata metricMetadata) {
-
-        String macAddress = metricMetadata.getMacAddress();
+    public void persistMetadataForMACAddress(String macAddress, MetricMetadata metricMetadata) {
         metadataMap.put(macAddress, metricMetadata);
     }
 
     @Override
-    public MetricMetadata readMetadataForHost(String macAddress) {
+    public MetricMetadata readMetadataForMACAddress(String macAddress) {
         return metadataMap.get(macAddress);
-    }
-
-    @Override
-    public List<String> readAllHosts() {
-        return new ArrayList<>(metadataMap.keySet());
     }
 
 }
