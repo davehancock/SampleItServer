@@ -4,6 +4,7 @@ import com.djh.sampleit.cpu.controller.model.CPUCore;
 import com.djh.sampleit.cpu.controller.model.CPUMetric;
 import com.djh.sampleit.cpu.model.CPUSample;
 import com.djh.sampleit.cpu.service.CPUService;
+import com.djh.sampleit.visitor.dao.SimpleVisitorDAO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +25,11 @@ public class CPUController {
     @Autowired
     private CPUService cpuService;
 
+    // TODO Obviously move this elsewhere
+    @Autowired
+    private SimpleVisitorDAO simpleVisitorDAO;
+
+
     @RequestMapping(value = "cpu", method = RequestMethod.POST)
     public void postCpuMetric(@RequestBody CPUMetric cpuMetric, HttpServletRequest httpServletRequest) {
 
@@ -37,7 +43,12 @@ public class CPUController {
 
     @CrossOrigin
     @RequestMapping(value = "cpu/samples/{machineAlias}/{numberOfPoints}", method = RequestMethod.GET)
-    public List<List<Double>> getCpuOverlayForHost(@PathVariable String machineAlias, @PathVariable int numberOfPoints) {
+    public List<List<Double>> getCpuOverlayForHost(@PathVariable String machineAlias,
+                                                   @PathVariable int numberOfPoints,
+                                                   HttpServletRequest httpServletRequest) {
+
+        // TODO Obviously move this elsewhere
+        simpleVisitorDAO.addVisitor(httpServletRequest.getRemoteAddr());
 
         List<List<Double>> cpuStats = new ArrayList<>();
 

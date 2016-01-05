@@ -14,6 +14,7 @@ import com.djh.sampleit.memory.dao.MemoryDAO;
 import com.djh.sampleit.memory.dao.SimpleMemoryDAO;
 import com.djh.sampleit.memory.service.DefaultMemoryService;
 import com.djh.sampleit.memory.service.MemoryService;
+import com.djh.sampleit.visitor.dao.SimpleVisitorDAO;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
@@ -61,6 +62,12 @@ public class ServerConfiguration {
     @Bean
     public MemoryDAO memoryDAO() {
         return new SimpleMemoryDAO();
+    }
+
+    // Visitor
+    @Bean
+    public SimpleVisitorDAO simpleVisitorDAO(){
+        return new SimpleVisitorDAO();
     }
 
 }
